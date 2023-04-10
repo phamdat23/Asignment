@@ -1,0 +1,131 @@
+<%- include('../layout/header.ejs',{title:"Edit User"}) %>
+    <div class="row form-control  m-1 p-2">
+        <form action="" name="update" method="post" enctype="multipart/form-data">
+            <div class="modal-body ">
+                <div class="row justify-content-center ">
+                    <img src="<%=users.image%>" alt="" id="image" class=" " style="width: 200px; height: 150px;">
+                </div>
+               
+                <div class="m-3">
+                    <span>Username</span>
+                    <input name="username" id="username" value="<%=users.username%>" class="form-control" type="text"
+                        placeholder="Username" disabled>
+                    <span id="erUsername" style="color: red;">
+                    </span>
+                </div>
+                <div class="m-3">
+                    <span>Password</span>
+                    <input name="passwd" id="passwd" value="" class="form-control" type="password"
+                        placeholder="Nhập mật khẩu mới">
+                    <span id="erPasswd" style="color: red;">
+
+                    </span>
+                </div>
+                <div class="m-3">
+                    <span>Fullname</span>
+                    <input name="fullname" id="email" value="<%=users.fullname%>" class="form-control" type="text"
+                        placeholder="Email">
+                    <span id="erEmail" style="color: red;">
+
+                    </span>
+                </div>
+                <div class="m-3">
+                    <span>Email</span>
+                    <input class="form-control" type="email" placeholder="Email" name="email" value="<%=users.email%>"
+                        aria-label="default input example">
+                    <span style="color: red;"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Role</label>
+                    <select class="form-select " name="role" id="">
+                        <% roles.forEach((item)=>{%>
+                            <% var select="" ; if(item.name==users.role.name){ select="selected" } %>
+                                <option value="<%= item._id%>" <%=select %>>
+                                    <%= item.name %>
+                                  
+                                </option>
+                                <%}) %>
+                    </select>
+
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Tải ảnh lên</label>
+                    <input class="form-control" onchange="changeImag()" name="image" accept="image/*" type="file"
+                        id="formFile">
+                </div>
+
+            </div>
+            <div class=" col-12 justify-content-center d-flex">
+                <button type="submit" class="btn btn-outline-primary">Cập nhật</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        const update = document.forms['update']
+        const erFullname = document.getElementById('erFullname')
+        const erEmail = document.getElementById('erEmail')
+        const erUsername = document.getElementById('erUsername')
+        const erPasswd = document.getElementById('erPasswd')
+
+        const fullname = document.getElementById('fullname')
+        const email = document.getElementById('email')
+        const username = document.getElementById('username')
+        const passwd = document.getElementById('passwd')
+
+
+        document.getElementById('btnReg').onclick = () => {
+            var rexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+            if (fullname.value != "" && username.value != "" && email.value != "" && passwd.value != "" && passwd.value.length >= 8 && rexEmail.test(email.value) == true) {
+                update.submit()
+
+            } else {
+                if (fullname.value == "") {
+                    erFullname.innerHTML = "không được để trống mục này"
+                } else {
+                    erFullname.innerHTML = ""
+                }
+                if (username.value == "") {
+                    erUsername.innerHTML = "Tên tài khỏa không được để trống"
+                } else {
+                    erUsername.innerHTML = ""
+                }
+                if (email.value == "") {
+                    erEmail.innerHTML = "Email không được để trống"
+                } else if (rexEmail.test(email.value) == false) {
+                    erEmail.innerHTML = "Email không hợp lệ"
+                }
+                else {
+                    erEmail.innerHTML = ""
+                }
+                if (passwd.value == "") {
+                    erPasswd.innerHTML = "Mật khẩu không được để trống"
+                } else if (passwd.value.length < 8) {
+                    erPasswd.innerHTML = "Mật khẩu ít nhất 8 ký tự"
+                } else {
+                    erPasswd.innerHTML = ""
+                }
+
+
+            }
+        }
+    </script>
+    <script>
+        const file = document.getElementById("formFile");
+        const avata = document.getElementById('image')
+        const changeImag = () => {
+            console.log(file.value);
+            let image = file.files[0];
+            const reader = new FileReader();
+            // Đọc tệp và chuyển đổi thành base64
+            reader.readAsDataURL(image);
+            reader.onload = () => {
+                const base64String = reader.result; // Lấy phần base64 từ chuỗi đọc được
+                avata.src = base64String;
+                console.log(image);
+                console.log(base64String);
+                // In ra chuỗi base64 của tệp
+
+            };
+        }
+    </script>
+    <%- include('../layout/footer.ejs') %>

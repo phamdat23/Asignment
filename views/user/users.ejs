@@ -1,0 +1,318 @@
+<%- include('../layout/header.ejs', {title:title}) %>
+    <div class="container-fluid pt-3">
+        <div class="row form-control justify-content-center d-flex col-12">
+            <form action="/users/search/" method="get" class="row row-cols-lg-auto align-items-center">
+                <div class="row col-sm-12 col-md-3 col-lg-3 m-2">
+                    <input type="text" class="form-control form-control-sm" name="search_username" id=""
+                        aria-describedby="helpId" placeholder="Tìm kiếm tài khoản">
+                </div>
+
+                <div class="row col-sm-12 col-md-3 col-lg-3 m-2">
+                    <select class="form-select form-select-sm col-sm-12 col-md-4 col-lg-3" name="role_search"
+                        aria-label=".form-select-sm example">
+                        <option value="0">Loại phân quyền</option>
+                       <% roles.forEach((item)=>{%>
+                            <option value="<%= item._id%>"><%= item.name %></option>
+                       <%}) %>
+                        
+                    </select>
+
+                </div>
+               
+                <button class="btn btn-primary  col-sm-2 col-md-2 col-lg-1 " type="submit">Tìm kiếm</button>
+            </form>
+
+        </div>
+        <div class="row mt-3">
+            <table class="table table-striped" style="width:100%">
+                <thead>
+                    <tr class="table-primary">
+                        <th>Fullname</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Active</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%users.forEach((item)=>{%>
+                        <tr class="">
+                            <td>
+
+                                <%=item.fullname%>
+                            </td>
+
+                            <td>
+                                <%=item.username%>
+                            </td>
+
+
+                            <td>
+                                <%=item.email%>
+                            </td>
+                            <td>
+                                <%= item.role.name%>
+                            </td>
+
+                            <td>
+                                <div class="row justify-content-center">
+                                    <a href="users/edit/<%=item._id%>"
+                                        class="btn btn-outline-primary justify-content-center align-items-center col-3 m-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                                        </svg>
+                                    </a>
+                                    <button id="delete" data-bs-toggle="modal" data-bs-target="#ModalDelete"
+                                        data-bs-id="<%= item._id%>"
+                                        class="btn btn-outline-danger justify-content-center align-items-center col-3 m-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                        </svg>
+                                    </button>
+                                    <a href="users/detail/<%=item._id%>"
+                                        class="btn btn-outline-secondary justify-content-center align-items-center col-3 m-1 ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                            <path
+                                                d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                        </svg>
+                                    </a>
+                                </div>
+
+                            </td>
+
+                        </tr>
+                        <%})%>
+
+                </tbody>
+
+            </table>
+
+        </div>
+        <!-- phân trang -->
+        <ul class="pagination justify-content-center mt-3">
+            <% if (current==1) { %>
+                <li class="page-item disabled"><a href="#" class="page-link">First</a></li>
+                <% } else { %>
+                    <li class="page-item"><a href="?page=1" class="page-link">First</a></li>
+                    <% } %>
+
+                        <% var i=(Number(current)> 25 ? Number(current) - 25 : 1) %>
+                            <% if(i !==1) { %>
+                                <li class="page-item disabled"><a href="#" class="page-link">...</a></li>
+                                <% } %>
+                                    <% for( ; i<=Number(current) + 25 && i <=pages; i++ ) { %>
+                                        <% if(i==current) { %>
+                                            <li class="page-item disabled"><a href="#" class="page-link">
+                                                    <%= i %>
+                                                </a></li>
+                                            <% } else { %>
+                                                <li class="page-item "><a href="?page=<%= i %>" class="page-link">
+                                                        <%= i %>
+                                                    </a></li>
+                                                <% } %>
+                                                    <% } %>
+                                                        <% if (i==Number(current) + 25 && i < pages) { %>
+                                                            <li class="page-item disabled"><a href="#"
+                                                                    class="page-link">
+                                                                    ...
+                                                                </a></li>
+                                                            <% } %>
+                                                                <% if (current==pages) { %>
+                                                                    <li class="page-item disabled">
+                                                                        <a href="#" class="page-link">Last</a>
+                                                                    </li>
+                                                                    <% } else { %>
+                                                                        <li class="page-item"><a
+                                                                                href="?page=<%= pages %>"
+                                                                                class="page-link">Last</a>
+                                                                        </li>
+                                                                        <% } %>
+        </ul>
+        
+        <!-- modal delete -->
+        <div class="modal fade" id="ModalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete User</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Bạn có chắc muốn xóa tài khoản này không
+                        <form name="form-delete" method="POST"></form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="btnDelete" type="button" class="btn btn-outline-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-right: 0px;" class="modal-update col-4">
+            <button type="button" class=" floating-btn  " data-bs-toggle="modal" data-bs-target="#modaAdd">
+                <img src="/images/add.png" alt="">
+                <div class="text">
+
+                    Thêm mới
+                </div>
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="modaAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <form action="" name="add-user" method="post" enctype="multipart/form-data">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Thêm mới</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div style="width: 130px; height: 100px; position: relative; left: 35%;"
+                                    class=" border-1 rounded mb-1 ">
+                                    <img style="width: 100%; height: 100%;" id="imageAvata" class=" float-start" alt="">
+                                </div>
+                                <div class="m-3">
+                                    <span>Username</span>
+                                    <input name="username" id="username" value="" class="form-control" type="text"
+                                        placeholder="Username">
+                                    <span id="erUsername" style="color: red;">
+                                    </span>
+                                </div>
+                                <div class="m-3">
+                                    <span>Password</span>
+                                    <input name="passwd" id="passwd" value="" class="form-control" type="password"
+                                        placeholder="Password">
+                                    <span id="erPasswd" style="color: red;">
+
+                                    </span>
+                                </div>
+                                <div class="m-3">
+                                    <span>Fullname</span>
+                                    <input name="fullname" id="email" value="" class="form-control" type="text"
+                                        placeholder="Fullname">
+                                    <span id="erEmail" style="color: red;">
+
+                                    </span>
+                                </div>
+                                <div class="m-3">
+                                    <span>Email</span>
+                                    <input class="form-control" type="email" placeholder="Email" name="email" value=""
+                                        aria-label="default input example">
+                                    <span style="color: red;"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label">Tải ảnh lên</label>
+                                    <input class="form-control" onchange="changeImag()" name="image" accept="image/*" type="file"
+                                        id="formFile">
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Thêm Mới</button>
+                            </div>
+                        </form>
+                       
+                    </div>
+                    <script>
+                        const file = document.getElementById("formFile");
+                        const avata = document.getElementById('imageAvata')
+                        const changeImag = () => {
+                            console.log(file.value);
+                            let image = file.files[0];
+                            const reader = new FileReader();
+                            // Đọc tệp và chuyển đổi thành base64
+                            reader.readAsDataURL(image);
+                            reader.onload = () => {
+                                const base64String = reader.result; // Lấy phần base64 từ chuỗi đọc được
+                                avata.src = base64String;
+                                console.log(image);
+                                console.log(base64String);
+                                // In ra chuỗi base64 của tệp
+
+                            };
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const add_user = document.forms['add-user']
+        const erFullname = document.getElementById('erFullname')
+        const erEmail = document.getElementById('erEmail')
+        const erUsername = document.getElementById('erUsername')
+        const erPasswd = document.getElementById('erPasswd')
+
+        const fullname = document.getElementById('fullname')
+        const email = document.getElementById('email')
+        const username = document.getElementById('username')
+        const passwd = document.getElementById('passwd')
+
+
+        document.getElementById('btnReg').onclick = () => {
+            var rexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+            if (fullname.value != "" && username.value != "" && email.value != "" && passwd.value != "" && passwd.value.length >= 8 && rexEmail.test(email.value) == true) {
+                add_user.submit()
+
+            } else {
+                if (fullname.value == "") {
+                    erFullname.innerHTML = "không được để trống mục này"
+                } else {
+                    erFullname.innerHTML = ""
+                }
+                if (username.value == "") {
+                    erUsername.innerHTML = "Tên tài khỏa không được để trống"
+                } else {
+                    erUsername.innerHTML = ""
+                }
+                if (email.value == "") {
+                    erEmail.innerHTML = "Email không được để trống"
+                } else if (rexEmail.test(email.value) == false) {
+                    erEmail.innerHTML = "Email không hợp lệ"
+                }
+                else {
+                    erEmail.innerHTML = ""
+                }
+                if (passwd.value == "") {
+                    erPasswd.innerHTML = "Mật khẩu không được để trống"
+                } else if (passwd.value.length < 8) {
+                    erPasswd.innerHTML = "Mật khẩu ít nhất 8 ký tự"
+                } else {
+                    erPasswd.innerHTML = ""
+                }
+
+
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const exampleModal = document.getElementById('ModalDelete')
+            var iduser;
+            const btnDelete = document.getElementById("btnDelete")
+            const formDelete = document.forms["form-delete"]
+            console.log(formDelete);
+            exampleModal.addEventListener('show.bs.modal', event => {
+                const button = event.relatedTarget
+                iduser = button.getAttribute('data-bs-id')
+                console.log(idProduct);
+
+            })
+            btnDelete.onclick = () => {
+                formDelete.action = "/users/" + iduser + "/?_method=DELETE";
+                formDelete.submit();
+            }
+
+        })
+
+    </script>
+    <%- include('../layout/footer.ejs') %>

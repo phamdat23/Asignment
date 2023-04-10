@@ -1,0 +1,60 @@
+<%- include('../layout/header.ejs',{title:"Update Account"}) %>
+    <div class="row form-control  m-1 p-2">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="modal-body justify-content-center ">
+                <img src="<%=users.image%>" alt="" id="image" class=" rounded m-3" style="width: 100px; height: 100px;">
+                <div class="m-3">
+                    <span>Username</span>
+                    <input class="form-control" type="text" placeholder="Username " disabled name="username"
+                        value="<%= users.username %>" aria-label="default input example">
+                    <span style="color: red;"></span>
+                </div>
+                <div class="m-3">
+                    <span>Password</span>
+                    <input class="form-control" type="text" placeholder="Nhập mật khẩu mới " name="passwd"
+                        value="" aria-label="default input example">
+                    <span style="color: red;"></span>
+                </div>
+                <div class="m-3">
+                    <span>Fullname</span>
+                    <input class="form-control" type="text" placeholder="Fullname" name="fullname"
+                        value="<%= users.fullname %>" aria-label="default input example">
+                    <span style="color: red;"></span>
+                </div>
+                <div class="m-3">
+                    <span>Email</span>
+                    <input class="form-control" type="email" placeholder="Email" name="email" value="<%= users.email %>"
+                        aria-label="default input example">
+                    <span style="color: red;"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Tải ảnh lên</label>
+                    <input class="form-control" onchange="changeImag()" name="image" type="file" id="formFile">
+                </div>
+
+            </div>
+            <div class=" col-12 justify-content-center d-flex">
+                <button type="submit" class="btn btn-outline-primary">Cập nhật</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        const file = document.getElementById("formFile");
+        const avata = document.getElementById('image')
+        const changeImag = () => {
+            console.log(file.value);
+            let image = file.files[0];
+            const reader = new FileReader();
+            // Đọc tệp và chuyển đổi thành base64
+            reader.readAsDataURL(image);
+            reader.onload = () => {
+                const base64String = reader.result; // Lấy phần base64 từ chuỗi đọc được
+                avata.src = base64String;
+                console.log(image);
+                console.log(base64String);
+                // In ra chuỗi base64 của tệp
+
+            };
+        }
+    </script>
+    <%- include('../layout/footer.ejs') %>

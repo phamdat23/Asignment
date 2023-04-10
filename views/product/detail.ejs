@@ -1,0 +1,24 @@
+<%- include('../layout/header.ejs',{title:"Detail Product"}) %>
+<div class="row col-12 justify-content-center">
+    <img src="<%=product.image%>" alt="" class=" border p-2 rounded m-3" style="width: 220px; height: 220px;">
+
+    <div class="form-control mt-3 mb-3 ms-2 col-4">
+        Tên sản phẩm: <%= product.namePro%>
+    </div>
+    <div class="form-control mt-3 mb-3 ms-2 col-4 " style="color: red;">
+        Giá: <%= product.price%>k
+    </div>
+    <div class="form-control mt-3 mb-3 ms-2 col-4">
+        Số lượng: <%= product.count %>
+    </div>
+    <div class="form-control mt-3 mb-3 ms-2 col-4">
+        Thể loại: <%= product.category.name %>
+    </div>
+    <div class="form-control mt-3 mb-3 ms-2 col-4">
+        ID khách hàng: <%= product.idKh %>
+    </div>
+    <div class="form-control mt-3 mb-3 ms-2 col-4">
+        Tên khách hàng: <%= product.nameKh %>
+    </div>
+</div>
+<%- include('../layout/footer.ejs') %>

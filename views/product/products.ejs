@@ -1,0 +1,282 @@
+<%- include('../layout/header.ejs',{title:title}) %>
+    <div class="container-fluid pt-2">
+        <div class="row form-control justify-content-center d-flex col-12">
+            <form action="/product/search" method="get" class="row row-cols-lg-auto align-items-center">
+                <div class="row col-sm-12 col-md-3 col-lg-3 m-2">
+                    <input type="text" class="form-control form-control-sm" name="search_name" id=""
+                        aria-describedby="helpId" placeholder="Tìm kiếm sản phẩm">
+                </div>
+
+                <div class="row col-sm-12 col-md-3 col-lg-3 m-2">
+                    <select class="form-select form-select-sm col-sm-12 col-md-4 col-lg-3" name="category_search"
+                        aria-label=".form-select-sm example">
+                        <option value="0">Tìm theo thể loại</option>
+                        <% categorys.forEach((item)=>{%>
+                            <option value="<%= item._id%>">
+                                <%= item.name %>
+                            </option>
+                            <%}) %>
+                    </select>
+
+                </div>
+                <div class="row col-sm-12 col-md-3 col-lg-3 m-2">
+                    <select class="form-select form-select-sm col-sm-12 col-md-4 col-lg-3" name="price_search"
+                        aria-label=".form-select-sm example">
+                        <option selected value="">Tìm theo giá </option>
+                        <option value="1">Dưới 100.000đ</option>
+                        <option value="2">100.000đ đến 400.000đ </option>
+                        <option value="3">Trên 400.000đ</option>
+                    </select>
+
+                </div>
+                <button class="btn btn-primary  col-sm-2 col-md-2 col-lg-1 " type="submit">Tìm kiếm</button>
+            </form>
+
+        </div>
+
+        <div class="row form-control  mt-3 ">
+            <table class="table table-striped" style="width:100%">
+                <thead>
+                    <tr class="table-primary">
+                        <th>STT</th>
+                        <th>Ảnh</th>
+                        <th>Tên </th>
+                        <th>Giá</th>
+                        <th>thể loại</th>
+                        <th>Số lượng</th>
+                        <th>Thêm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%products.forEach((item, index)=>{%>
+                        <tr>
+                            <td>
+                                <%= index+1 %>
+                            </td>
+                            <td>
+                                <div style="width: 50px; height: 50px;" class="image">
+                                    <img style="width: 100%; height: 100%;" src="<%= item.image %>" alt="">
+                                </div>
+                            </td>
+                            <td class="align-items-center">
+                                <%= item.namePro%>
+                            </td>
+                            <td class="align-items-center">
+                                <%= item.price%>
+                            </td>
+                            <td>
+                                <%= item.category.name %>
+                            </td>
+                            <td>
+                                <%= item.count%>
+                            </td>
+                            <td>
+
+                                <div class="row justify-content-center">
+                                    <a href="product/edit/<%=item._id%>"
+                                        class="btn btn-outline-primary justify-content-center align-items-center col-1 col-md-2 col-lg-3 m-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                                        </svg>
+                                    </a>
+                                    <button id="delete" data-bs-toggle="modal" data-bs-target="#ModalDelete"
+                                        data-bs-id="<%= item._id %>"
+                                        class="btn btn-outline-danger justify-content-center align-items-center col-1 col-md-2 col-lg-3 m-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                                        </svg>
+                                    </button>
+                                    <a href="product/detail/<%=item._id%>"
+                                        class="btn btn-outline-secondary justify-content-center align-items-center col-1 col-md-2 col-lg-3 m-1 ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                            <path
+                                                d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <%})%>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- modal delete -->
+        <div class="modal fade" id="ModalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Product</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Bạn có chắc muốn xóa sản phẩm này không
+                        <form name="form-delete" method="POST"></form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="btnDelete" type="button" class="btn btn-outline-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- phân trang -->
+        <ul class="pagination justify-content-center mt-3">
+            <% if (current==1) { %>
+                <li class="page-item disabled"><a href="#" class="page-link">First</a></li>
+                <% } else { %>
+                    <li class="page-item"><a href="?page=1" class="page-link">First</a></li>
+                    <% } %>
+
+                        <% var i=(Number(current)> 25 ? Number(current) - 25 : 1) %>
+                            <% if(i !==1) { %>
+                                <li class="page-item disabled"><a href="#" class="page-link">...</a></li>
+                                <% } %>
+                                    <% for( ; i<=Number(current) + 25 && i <=pages; i++ ) { %>
+                                        <% if(i==current) { %>
+                                            <li class="page-item disabled"><a href="#" class="page-link">
+                                                    <%= i %>
+                                                </a></li>
+                                            <% } else { %>
+                                                <li class="page-item "><a href="?page=<%= i %>" class="page-link">
+                                                        <%= i %>
+                                                    </a></li>
+                                                <% } %>
+                                                    <% } %>
+                                                        <% if (i==Number(current) + 25 && i < pages) { %>
+                                                            <li class="page-item disabled"><a href="#"
+                                                                    class="page-link">
+                                                                    ...
+                                                                </a></li>
+                                                            <% } %>
+                                                                <% if (current==pages) { %>
+                                                                    <li class="page-item disabled">
+                                                                        <a href="#" class="page-link">Last</a>
+                                                                    </li>
+                                                                    <% } else { %>
+                                                                        <li class="page-item"><a
+                                                                                href="?page=<%= pages %>"
+                                                                                class="page-link">Last</a>
+                                                                        </li>
+                                                                        <% } %>
+        </ul>
+
+
+        <div style="margin-right: 0px;" class="modal-update col-4">
+            <button type="button" class="floating-btn" data-bs-toggle="modal" data-bs-target="#modalAdd">
+                <img src="/images/add.png" alt="">
+                <div class="text">
+
+                    Thêm mới
+                </div>
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="modalAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="" name="add-product" method="post" enctype="multipart/form-data">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Insert
+                                    Product</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div style="width: 130px; height: 100px; position: relative; left: 35%;"
+                                    class=" border-1 rounded mb-1 ">
+                                    <img style="width: 100%; height: 100%;" id="imageAvata" class=" float-start" alt="">
+                                </div>
+
+                                <div class="m-3">
+                                    <input class="form-control" type="text" required placeholder="Tên sản phẩm "
+                                        name="nameProductAdd" value="" aria-label="default input example">
+                                </div>
+                                <div class="m-3">
+                                    <input class="form-control" type="number" min="0" placeholder="Giá sản phẩm "
+                                        name="priceProductAdd" value="" aria-label="default input example">
+                                </div>
+                                <div class="m-3">
+                                    <input class="form-control" type="number" min="0" placeholder="Số lượng"
+                                        name="countProductAdd" value="" aria-label="default input example">
+                                </div>
+
+                                <select class="form-select mt-3 mb-3" name="category"
+                                    aria-label="Default select example">
+                                    <% categorys.forEach((item)=>{%>
+
+                                        <option value="<%= item._id%>">
+                                            <%= item.name %>
+                                        </option>
+                                        <%}) %>
+                                </select>
+                                <div class="m-3">
+                                    <input class="form-control" type="text" placeholder="Mã khách hàng" name="idHk"
+                                        value="" aria-label="default input example">
+                                </div>
+                                <div class="m-3">
+                                    <input class="form-control" type="text" placeholder="Tên Khách hàng" name="nameHk"
+                                        value="" aria-label="default input example">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label">Tải ảnh lên</label>
+                                    <input class="form-control" onchange="changeImag()" name="image" accept="image/*"
+                                        type="file" id="formFile">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="submit" class="btn btn-primary">Thêm mới</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <script>
+                    const file = document.getElementById("formFile");
+                    const avata = document.getElementById('imageAvata')
+                    const changeImag = () => {
+                        console.log(file.value);
+                        let image = file.files[0];
+                        const reader = new FileReader();
+                        // Đọc tệp và chuyển đổi thành base64
+                        reader.readAsDataURL(image);
+                        reader.onload = () => {
+                            const base64String = reader.result; // Lấy phần base64 từ chuỗi đọc được
+                            avata.src = base64String;
+                            console.log(image);
+                            console.log(base64String);
+                            // In ra chuỗi base64 của tệp
+
+                        };
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const exampleModal = document.getElementById('ModalDelete')
+            var idProduct;
+            const btnDelete = document.getElementById("btnDelete")
+            const formDelete = document.forms["form-delete"]
+            console.log(formDelete);
+            exampleModal.addEventListener('show.bs.modal', event => {
+                const button = event.relatedTarget
+                idProduct = button.getAttribute('data-bs-id')
+                console.log(idProduct);
+
+            })
+            btnDelete.onclick = () => {
+                formDelete.action = "/product/" + idProduct + "/?_method=DELETE";
+                formDelete.submit();
+            }
+
+        })
+
+    </script>
+    <%- include('../layout/footer.ejs') %>

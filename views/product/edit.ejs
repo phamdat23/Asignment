@@ -1,0 +1,67 @@
+<%- include('../layout/header.ejs',{title:"Edit Product"}) %>
+    <div class="container ">
+        <form action="" method="POST" class="form-control p-2 mt-2" enctype="multipart/form-data">
+            <div class="modal-body">
+                <img src="<%=itemOld.image%>" alt="" id="imageAvata" class=" border p-2 rounded m-3"
+                    style="width: 220px; height: 220px;">
+                <div class="m-3">
+                    <span>Tên sản phẩm</span>
+                    <input class="form-control" type="text" required placeholder="Tên sản phẩm " name="nameProductUpdate"
+                        value="<%=itemOld.namePro%>" aria-label="default input example">
+                </div>
+                <div class="m-3">
+                    <span>Giá sản phẩm</span>
+                    <input class="form-control" type="number" min="0" placeholder="Giá sản phẩm " name="priceProductUpdate"
+                        value="<%=itemOld.price%>" aria-label="default input example">
+                </div>
+                <div class="m-3">
+                    <span>Số lượng</span>
+                    <input class="form-control" type="number" min="0" placeholder="Số lượng" name="countProductUpdate"
+                        value="<%=itemOld.count%>" aria-label="default input example">
+                </div>
+                <select class="form-select mt-3 mb-3" name="category" aria-label="Default select example">
+                    <% categorys.forEach((item)=>{%>
+                        <% let select="" ; if(item._id==itemOld.category._id){ select="selected" } %>
+                            <option value="<%= item._id%>" <%=select %>>
+                                <%= item.name %>
+                            </option>
+                            <%}) %>
+                </select>
+                <div class="m-3">
+                    <span>Id khách hàng</span>
+                    <input class="form-control" type="text" placeholder="Mã khách hàng" name="idHkUpdate"
+                        value="<%= itemOld.idKh %>" aria-label="default input example">
+                </div>
+                <div class="m-3">
+                    <span>Tên khách hàng</span>
+                    <input class="form-control" type="text" placeholder="Tên Khách hàng" name="nameHkupdate"
+                        value="<%= itemOld.nameKh %>" aria-label="default input example">
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Tải ảnh lên</label>
+                    <input class="form-control" accept="image/*" onchange="changeImag()" name="image" type="file" id="formFile">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-outline-primary m-3">Save</button>
+        </form>
+    </div>
+    <script>
+        const file = document.getElementById("formFile");
+        const avata = document.getElementById('imageAvata')
+        const changeImag = () => {
+            console.log(file.value);
+            let image = file.files[0];
+            const reader = new FileReader();
+            // Đọc tệp và chuyển đổi thành base64
+            reader.readAsDataURL(image);
+            reader.onload = () => {
+                const base64String = reader.result; // Lấy phần base64 từ chuỗi đọc được
+                avata.src = base64String;
+                console.log(image);
+                console.log(base64String);
+                // In ra chuỗi base64 của tệp
+
+            };
+        }
+    </script>
+    <%- include('../layout/footer.ejs') %>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet"
+        href="https://demo.hasthemes.com/adomx-preview/light/assets/css/vendor/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="https://demo.hasthemes.com/adomx-preview/light/assets/css/vendor/font-awesome.min.css">
+    <link rel="stylesheet" href="https://demo.hasthemes.com/adomx-preview/light/assets/css/vendor/themify-icons.css">
+    <link rel="stylesheet"
+        href="https://demo.hasthemes.com/adomx-preview/light/assets/css/vendor/cryptocurrency-icons.css">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="https://demo.hasthemes.com/adomx-preview/light/assets/css/plugins/plugins.css">
+
+    <!-- Helper CSS -->
+    <link rel="stylesheet" href="https://demo.hasthemes.com/adomx-preview/light/assets/css/helper.css">
+
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="https://demo.hasthemes.com/adomx-preview/light/assets/css/style.css">
+
+    <!-- Custom Style CSS Only For Demo Purpose -->
+    <link id="cus-style" rel="stylesheet"
+        href="https://demo.hasthemes.com/adomx-preview/light/assets/css/style-primary.css">
+</head>
+
+<body>
+    <div class="main-wrapper">
+
+        <!-- Content Body Start -->
+        <div class="content-body m-0 p-0">
+
+            <div class="login-register-wrap">
+                <div class="row">
+
+                    <div class="d-flex align-self-center justify-content-center order-2 order-lg-1 col-lg-5 col-12">
+                        <div class="login-register-form-wrap">
+
+                            <div class="content">
+                                <h1>Sign Up</h1>
+
+                            </div>
+
+                            <div class="login-register-form">
+                                <div style="width: 130px; height: 100px; position: relative; left: 35%;"
+                                    class=" border-1 rounded mb-1 ">
+                                    <img style="width: 100%; height: 100%;" id="imageAvata" class=" float-start" alt="">
+                                </div>
+                                <form action="" name="form-reg" method="post" enctype="multipart/form-data">
+                                    <div class="row">
+
+                                        <div class="col-12 mb-10">
+                                            <input name="fullname" id="fullname" value="<%= acc.fullname%>"
+                                                class="form-control" type="text" placeholder="Fullname" >
+                                            <span id="erFullname" style="color: red;">
+                                                <%= erFullname %>
+                                            </span>
+                                        </div>
+                                        <div class="col-12 mb-10">
+                                            <input name="email" id="email" value="<%=acc.email%>" class="form-control"
+                                                 type="text" placeholder="Email">
+                                            <span id="erEmail" style="color: red;">
+                                                <%= erEmail %>
+                                            </span>
+                                        </div>
+                                        <div class="col-12 mb-10">
+                                            <input name="username" id="username" value="<%=acc.username%>" 
+                                                class="form-control" type="text" placeholder="Username">
+                                            <span id="erUsername" style="color: red;">
+                                                <%= erUsername %>
+                                            </span>
+                                        </div>
+                                        <div class="col-12 mb-10">
+                                            <input name="passwd" id="passwd" value="<%=acc.password%>" 
+                                                class="form-control" type="password" placeholder="Password">
+                                            <span id="erPasswd" style="color: red;">
+                                                <%=erPasswd %>
+                                            </span>
+                                        </div>
+                                        <div class="col-12 mb-10">
+                                            <input name="repasswd" id="repasswd" value="<%= acc.repass%>" 
+                                                class="form-control" type="password" placeholder="Retype Password">
+                                            <span id="erRePass" style="color: red;">
+                                                <%= erRePass %>
+                                            </span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="formFile" class="form-label">Tải ảnh lên</label>
+                                            <input name="photo" onchange="changeImag()" class="form-control"
+                                                accept="image/*" type="file" id="formFile">
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row justify-content-between">
+                                                <div class="col-auto mb-15">Already have account? <a href="/">Login
+                                                        Now.</a></div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </form>
+                                <div class="col-12 mt-10"><button type="button" id="btnReg"
+                                    class="button button-primary button-outline">sign up</button></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="login-register-bg order-2 order-lg-2 col-lg-7 col-12">
+                        <div class="content">
+                            <h1>Sign up</h1>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div><!-- Content Body End -->
+
+    </div>
+    <script>
+        const form_reg = document.forms['form-reg']
+        const erFullname = document.getElementById('erFullname')
+        const erEmail = document.getElementById('erEmail')
+        const erUsername = document.getElementById('erUsername')
+        const erPasswd = document.getElementById('erPasswd')
+        const erRePass = document.getElementById('erRePass')
+        const fullname = document.getElementById('fullname')
+        const email = document.getElementById('email')
+        const username = document.getElementById('username')
+        const passwd = document.getElementById('passwd')
+        const repasswd = document.getElementById('repasswd')
+
+        document.getElementById('btnReg').onclick = () => {
+            var rexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+            if (fullname.value != "" && username.value != "" && email.value != "" && passwd.value != "" && repasswd.value != "" && passwd.value == repasswd.value && passwd.value.length >= 8 && rexEmail.test(email.value) == true) {
+                form_reg.submit()
+               
+            } else {
+                if (fullname.value == "") {
+                    erFullname.innerHTML = "không được để trống mục này"
+                } else {
+                    erFullname.innerHTML = ""
+                }
+                if (username.value == "") {
+                    erUsername.innerHTML = "Tên tài khỏa không được để trống"
+                } else {
+                    erUsername.innerHTML = ""
+                }
+                if (email.value == "") {
+                    erEmail.innerHTML = "Email không được để trống"
+                } else if (rexEmail.test(email.value) == false) {
+                    erEmail.innerHTML = "Email không hợp lệ"
+                }
+                else {
+                    erEmail.innerHTML = ""
+                }
+                if (passwd.value == "") {
+                    erPasswd.innerHTML = "Mật khẩu không được để trống"
+                } else if (passwd.value.length < 8) {
+                    erPasswd.innerHTML = "Mật khẩu ít nhất 8 ký tự"
+                } else {
+                    erPasswd.innerHTML = ""
+                }
+                if (repasswd.value == "") {
+                    erRePass.innerHTML = "Mục này không được để trống"
+                } else if (repasswd.value != passwd.value) {
+                    erRePass.innerHTML = "Mật khẩu không đúng"
+                } else {
+                    erRePass.innerHTML = ""
+                }
+               
+            }
+        }
+    </script>
+    <script>
+        const file = document.getElementById("formFile");
+        const avata = document.getElementById('imageAvata')
+        const changeImag = () => {
+            console.log(file.value);
+            let image = file.files[0];
+            const reader = new FileReader();
+            // Đọc tệp và chuyển đổi thành base64
+            reader.readAsDataURL(image);
+            reader.onload = () => {
+                const base64String = reader.result; // Lấy phần base64 từ chuỗi đọc được
+                avata.src = base64String;
+                console.log(image);
+                console.log(base64String);
+                // In ra chuỗi base64 của tệp
+
+            };
+        }
+
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <script src="https://demo.hasthemes.com/adomx-preview/light/assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="https://demo.hasthemes.com/adomx-preview/light/assets/js/vendor/jquery-3.3.1.min.js"></script>
+</body>
+
+</html>

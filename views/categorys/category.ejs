@@ -1,0 +1,153 @@
+<%- include('../layout/header.ejs',{title:"Category"}) %>
+    <div class="container-fluid pt-2">
+        <div class="row form-control justify-content-center d-flex col-12">
+            <form action="/category/search" method="get" class="row row-cols-lg-auto align-items-center">
+                <div class="row col-sm-12 col-md-3 col-lg-3 m-2">
+                    <input type="text" class="form-control form-control-sm" name="search_category" id=""
+                        aria-describedby="helpId" placeholder="Tìm tên thể loại">
+                </div>
+                <button class="btn btn-primary  col-sm-2 col-md-2 col-lg-1 " type="submit">Tìm kiếm</button>
+            </form>
+
+        </div>
+
+        <div class="row form-control  mt-3 ">
+            <table class="table " style="width:100%">
+                <thead>
+                    <tr class="table-primary">
+                        <th>STT</th>
+                       
+                        <th>Tên thể loại </th>
+                        
+                        <th>Thêm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%categorys.forEach((item, index)=>{%>
+                        <tr>
+                            <td>
+                                <%= index+1 %>
+                            </td>
+                            <td><%= item.name %></td>
+                            <td>
+
+                                <div class="row justify-content-center">
+                                    <a href="category/edit/<%=item._id%>"
+                                        class="btn btn-outline-primary justify-content-center align-items-center col-1 col-md-2 col-lg-3 m-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                                        </svg>
+                                    </a>
+                                    
+                                </div>
+                            </td>
+                        </tr>
+                        <%})%>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- modal delete -->
+       
+        <!-- phân trang -->
+        <ul class="pagination justify-content-center mt-3">
+            <% if (current==1) { %>
+                <li class="page-item disabled"><a href="#" class="page-link">First</a></li>
+                <% } else { %>
+                    <li class="page-item"><a href="?page=1" class="page-link">First</a></li>
+                    <% } %>
+
+                        <% var i=(Number(current)> 25 ? Number(current) - 25 : 1) %>
+                            <% if(i !==1) { %>
+                                <li class="page-item disabled"><a href="#" class="page-link">...</a></li>
+                                <% } %>
+                                    <% for( ; i<=Number(current) + 25 && i <=pages; i++ ) { %>
+                                        <% if(i==current) { %>
+                                            <li class="page-item disabled"><a href="#" class="page-link">
+                                                    <%= i %>
+                                                </a></li>
+                                            <% } else { %>
+                                                <li class="page-item "><a href="?page=<%= i %>" class="page-link">
+                                                        <%= i %>
+                                                    </a></li>
+                                                <% } %>
+                                                    <% } %>
+                                                        <% if (i==Number(current) + 25 && i < pages) { %>
+                                                            <li class="page-item disabled"><a href="#"
+                                                                    class="page-link">
+                                                                    ...
+                                                                </a></li>
+                                                            <% } %>
+                                                                <% if (current==pages) { %>
+                                                                    <li class="page-item disabled">
+                                                                        <a href="#" class="page-link">Last</a>
+                                                                    </li>
+                                                                    <% } else { %>
+                                                                        <li class="page-item"><a
+                                                                                href="?page=<%= pages %>"
+                                                                                class="page-link">Last</a>
+                                                                        </li>
+                                                                        <% } %>
+        </ul>
+
+
+        <div style="margin-right: 0px;" class="modal-update col-4">
+            <button type="button" class="floating-btn" data-bs-toggle="modal" data-bs-target="#modalAdd">
+                <img src="/images/add.png" alt="">
+                <div class="text">
+
+                    Thêm mới
+                </div>
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="modalAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="" name="add-product" method="post">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Insert
+                                    Category</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                               
+                                <div class="m-3">
+                                    <input class="form-control" type="text" required placeholder="Tên thể loại "
+                                        name="nameCategory" value="" aria-label="default input example">
+                                </div>
+                                
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Thêm mới</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const exampleModal = document.getElementById('ModalDelete')
+            var idProduct;
+            const btnDelete = document.getElementById("btnDelete")
+            const formDelete = document.forms["form-delete"]
+            console.log(formDelete);
+            exampleModal.addEventListener('show.bs.modal', event => {
+                const button = event.relatedTarget
+                idProduct = button.getAttribute('data-bs-id')
+                console.log(idProduct);
+
+            })
+            btnDelete.onclick = () => {
+                formDelete.action = "/product/" + idProduct + "/?_method=DELETE";
+                formDelete.submit();
+            }
+
+        })
+
+    </script>
+    <%- include('../layout/footer.ejs') %>

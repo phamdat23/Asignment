@@ -1,0 +1,24 @@
+<%- include('../layout/header.ejs',{title:"Detail User"}) %>
+    <div class="row col-12">
+        <div class="fs-2 m-3">
+            <%= user.fullname %>
+        </div>
+
+
+        <img src="<%=user.image%>" alt="" class=" rounded m-3" style="width: 100px; height: 100px;">
+
+        <div class="form-control mt-3 mb-3 ms-2 col-4">
+            Fullname: <%= user.fullname %>
+        </div>
+        <div class="form-control mt-3 mb-3 ms-2 col-4">
+            Username: <%= user.username %>
+        </div>
+        <div class="form-control mt-3 mb-3 ms-2 col-4">
+            Email: <%= user.email %>
+        </div>
+        <div class="form-control mt-3 mb-3 ms-2 col-4">
+            Role: <%= user.role %>
+        </div>
+
+    </div>
+    <%- include('../layout/footer.ejs') %>

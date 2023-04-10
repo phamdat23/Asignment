@@ -1,0 +1,142 @@
+<div class="row footer">
+    <div class="container-fluid">
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+
+            </ul>
+            <p class="text-center text-muted">&copy;MSSV: PH28194 Họ Tên: Phạm Tuấn Đạt</p>
+        </footer>
+    </div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script>
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawCharts);
+    function drawCharts(){
+      var barData = google.visualization.arrayToDataTable([
+      ['Day', 'Tuần này', 'Tuần trước'],
+      ['Sun', 1050, 600],
+      ['Mon', 1370, 910],
+      ['Tue', 660, 400],
+      ['Wed', 1030, 540],
+      ['Thu', 1000, 480],
+      ['Fri', 1170, 960],
+      ['Sat', 660, 320]
+    ]);
+    // set bar chart options
+    var barOptions = {
+      focusTarget: 'category',
+      backgroundColor: 'transparent',
+      colors: ['cornflowerblue', 'tomato'],
+      fontName: 'Open Sans',
+      chartArea: {
+        left: 50,
+        top: 10,
+        width: '100%',
+        height: '70%'
+      },
+      bar: {
+        groupWidth: '80%'
+      },
+      hAxis: {
+        textStyle: {
+          fontSize: 11
+        }
+      },
+      vAxis: {
+        minValue: 0,
+        maxValue: 15000,
+        baselineColor: '#DDD',
+        gridlines: {
+          color: '#DDD',
+          count: 4
+        },
+        textStyle: {
+          fontSize: 11
+        }
+      },
+      legend: {
+        position: 'bottom',
+        textStyle: {
+          fontSize: 12
+        }
+      },
+      animation: {
+        duration: 1000,
+        easing: 'out',
+        startup: true
+      }
+    };
+    // draw bar chart twice so it animates
+    var barChart = new google.visualization.ColumnChart(document.getElementById('bar-chart'));
+    //barChart.draw(barZeroData, barOptions);
+    barChart.draw(barData, barOptions);
+    // chart pie
+
+  //   var pieData = google.visualization.arrayToDataTable([
+  //   ['Country', 'Page Hits'],
+  //   ['USA',      7242],
+  //   ['Canada',   4563],
+  //   ['Mexico',   1345],
+  //   ['Sweden',    946],
+  //   ['Germany',  2150]
+  // ]);
+  var pieData = google.visualization.arrayToDataTable([
+    ['Country', 'Page Hits'],
+    ['Áo Nam',      7242],
+    ['Áo Nữ',   9563],
+  ]);
+  // pie chart options
+  var pieOptions = {
+    backgroundColor: 'transparent',
+    pieHole: 0.4,
+    colors: [ "cornflowerblue", 
+              "olivedrab", 
+              "orange", 
+              "tomato", 
+              "crimson", 
+              "purple", 
+              "turquoise", 
+              "forestgreen", 
+              "navy", 
+              "gray"],
+    pieSliceText: 'value',
+    tooltip: {
+      text: 'percentage'
+    },
+    fontName: 'Open Sans',
+    chartArea: {
+      width: '100%',
+      height: '94%'
+    },
+    legend: {
+      textStyle: {
+        fontSize: 13
+      }
+    }
+  };
+  // draw pie chart
+  var pieChart = new google.visualization.PieChart(document.getElementById('pie-chart'));
+  pieChart.draw(pieData, pieOptions);
+    }
+    
+  </script>
+  <script>
+
+  </script>
+</body>
+</body>
+
+</html>

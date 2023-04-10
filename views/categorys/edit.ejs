@@ -1,0 +1,21 @@
+<%- include('../layout/header.ejs',{title:"Edit Category"}) %>
+<div class="row m-2 form-control">
+    <form action="" name="add-product" method="post">
+        <div class="modal-header">
+       
+            
+        </div>
+        <div class="modal-body">
+           
+            <div class="m-3">
+                <input class="form-control" type="text" required placeholder="Tên thể loại "
+                    name="nameCategory" value="<%= category.name%>" aria-label="default input example">
+            </div>
+            
+        <div class="row justify-content-center">
+            <button type="submit" class="btn btn-primary col-1">Cập nhật</button>
+        </div>
+    </form>
+</div>
+
+<%- include('../layout/footer.ejs') %>
